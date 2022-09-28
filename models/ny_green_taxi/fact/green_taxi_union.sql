@@ -52,8 +52,9 @@ select
 from january
 inner join february on january.vendorid = february.vendorid
 inner join march on january.vendorid = march.vendorid
-where rn = 1
-
+where january.rn = 1
+and february.rn = 1
+and march.rn = 1
 
 -- dbt build --m <model.sql> --var 'is_test_run: false'
 {% if var('is_test_run', default=true) %}

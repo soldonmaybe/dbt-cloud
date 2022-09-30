@@ -2,112 +2,46 @@
 
 with january as 
 (
-  select *,
-    row_number() over(partition by vendorid, lpep_pickup_datetime) as rn
-  from {{ source('ny_green_taxi','tripdata_2021_01') }}
-  where vendorid is not null 
+  select ROW_NUMBER() OVER (ORDER BY lpep_pickup_datetime) as tripID,* 
+  from {{ ref('green_taxi_2021_01') }}
 ),
 february as
 (
-  select *,
-    row_number() over(partition by vendorid, lpep_pickup_datetime) as rn
-  from {{ source('ny_green_taxi','tripdata_2021_02') }}
-  where vendorid is not null 
+  select ROW_NUMBER() OVER (ORDER BY lpep_pickup_datetime) as tripID,* 
+  from {{ ref('green_taxi_2021_02') }}
 ),
 march as
 (
-  select *,
-    row_number() over(partition by vendorid, lpep_pickup_datetime) as rn
-  from {{ source('ny_green_taxi','tripdata_2021_03') }}
-  where vendorid is not null 
+  select ROW_NUMBER() OVER (ORDER BY lpep_pickup_datetime) as tripID,* 
+  from {{ ref('green_taxi_2021_03') }}
 )
-select
-    -- identifiers
-    cast(vendorid as integer) as vendorid,
-    cast(ratecodeid as integer) as ratecodeid,
-    cast(pulocationid as integer) as  pickup_locationid,
-    cast(dolocationid as integer) as dropoff_locationid,
-    
-    -- timestamps
-    cast(lpep_pickup_datetime as timestamp) as pickup_datetime,
-    cast(lpep_dropoff_datetime as timestamp) as dropoff_datetime,
-    
-    -- trip info
-    store_and_fwd_flag,
-    cast(passenger_count as integer) as passenger_count,
-    cast(trip_distance as numeric) as trip_distance,
-    cast(trip_type as integer) as trip_type,
-    
-    -- payment info
-    cast(fare_amount as numeric) as fare_amount,
-    cast(extra as numeric) as extra,
-    cast(mta_tax as numeric) as mta_tax,
-    cast(tip_amount as numeric) as tip_amount,
-    cast(tolls_amount as numeric) as tolls_amount,
-    cast(ehail_fee as numeric) as ehail_fee,
-    cast(improvement_surcharge as numeric) as improvement_surcharge,
-    cast(total_amount as numeric) as total_amount,
-    cast(payment_type as integer) as payment_type,
-    cast(congestion_surcharge as numeric) as congestion_surcharge
-from january
-union ALL
-select
-    -- identifiers
-    cast(vendorid as integer) as vendorid,
-    cast(ratecodeid as integer) as ratecodeid,
-    cast(pulocationid as integer) as  pickup_locationid,
-    cast(dolocationid as integer) as dropoff_locationid,
-    
-    -- timestamps
-    cast(lpep_pickup_datetime as timestamp) as pickup_datetime,
-    cast(lpep_dropoff_datetime as timestamp) as dropoff_datetime,
-    
-    -- trip info
-    store_and_fwd_flag,
-    cast(passenger_count as integer) as passenger_count,
-    cast(trip_distance as numeric) as trip_distance,
-    cast(trip_type as integer) as trip_type,
-    
-    -- payment info
-    cast(fare_amount as numeric) as fare_amount,
-    cast(extra as numeric) as extra,
-    cast(mta_tax as numeric) as mta_tax,
-    cast(tip_amount as numeric) as tip_amount,
-    cast(tolls_amount as numeric) as tolls_amount,
-    cast(ehail_fee as numeric) as ehail_fee,
-    cast(improvement_surcharge as numeric) as improvement_surcharge,
-    cast(total_amount as numeric) as total_amount,
-    cast(payment_type as integer) as payment_type,
-    cast(congestion_surcharge as numeric) as congestion_surcharge
-from february
-union All
-select
-    -- identifiers
-    cast(vendorid as integer) as vendorid,
-    cast(ratecodeid as integer) as ratecodeid,
-    cast(pulocationid as integer) as  pickup_locationid,
-    cast(dolocationid as integer) as dropoff_locationid,
-    
-    -- timestamps
-    cast(lpep_pickup_datetime as timestamp) as pickup_datetime,
-    cast(lpep_dropoff_datetime as timestamp) as dropoff_datetime,
-    
-    -- trip info
-    store_and_fwd_flag,
-    cast(passenger_count as integer) as passenger_count,
-    cast(trip_distance as numeric) as trip_distance,
-    cast(trip_type as integer) as trip_type,
-    
-    -- payment info
-    cast(fare_amount as numeric) as fare_amount,
-    cast(extra as numeric) as extra,
-    cast(mta_tax as numeric) as mta_tax,
-    cast(tip_amount as numeric) as tip_amount,
-    cast(tolls_amount as numeric) as tolls_amount,
-    cast(ehail_fee as numeric) as ehail_fee,
-    cast(improvement_surcharge as numeric) as improvement_surcharge,
-    cast(total_amount as numeric) as total_amount,
-    cast(payment_type as integer) as payment_type,
-    cast(congestion_surcharge as numeric) as congestion_surcharge
-from march
-where rn = 1
+
+SELECT 
+       tripID, 
+       lpep_pickup_datetime, 
+       lpep_dropoff_datetime, 
+       CAST(vendorID AS INT64) as vendorID,
+       CAST(RatecodeID AS INT64) as RatecodeID,
+       CAST(PULocationID AS INT64) as PULocationID,
+       CAST(DOLocationID AS INT64) as DOLocationID
+FROM january
+UNION ALL
+SELECT 
+       tripID, 
+       lpep_pickup_datetime, 
+       lpep_dropoff_datetime, 
+       CAST(vendorID AS INT64) as vendorID,
+       CAST(RatecodeID AS INT64) as RatecodeID,
+       CAST(PULocationID AS INT64) as PULocationID,
+       CAST(DOLocationID AS INT64) as DOLocationID
+FROM february
+UNION ALL
+SELECT 
+       tripID, 
+       lpep_pickup_datetime, 
+       lpep_dropoff_datetime, 
+       CAST(vendorID AS INT64) as vendorID,
+       CAST(RatecodeID AS INT64) as RatecodeID,
+       CAST(PULocationID AS INT64) as PULocationID,
+       CAST(DOLocationID AS INT64) as DOLocationID
+FROM march

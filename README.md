@@ -5,4 +5,6 @@ models/ny_green_taxi/source is for source tables
 
 models/ny_green_taxi/fact is for fact tables
 
-![Screenshot 2022-09-29 015519](https://user-images.githubusercontent.com/107629397/192865724-e1b2eceb-ee7b-4def-b0e6-f8500bd58abf.png)
+the lineage for this project:
+
+![image](https://user-images.githubusercontent.com/107629397/193253646-1b537967-8289-4bd9-a7cb-94b8052ec080.png)

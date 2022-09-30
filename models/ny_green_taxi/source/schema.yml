@@ -1,12 +1,27 @@
 version: 2
 
 sources:
-    - name: ny_green_taxi
-    #   For bigquery:
-      # database: firm-pentameter-363006
-
-    #   For postgres:
-    #   database: production
+models:
+    - name: green_tripdata_full
+      tags: ["Source"]
+      description: "Source table for this project"
+      columns:
+          - name: tripID
+            tests:
+                - unique
+                - not_null
+          - name: vendorID
+            tests:
+                - not_null
+          - name: RatecodeID
+            tests:
+                - not_null
+          - name: PULocationID
+            tests:
+                - not_null
+          - name: DOLocationID
+            tests:
+                - not_null
 
       schema: ny_green_taxi
 

@@ -20,28 +20,28 @@ SELECT
        tripID, 
        pickup_datetime, 
        dropoff_datetime, 
-       CAST(vendorID AS INT64) as vendorID,
-       CAST(RatecodeID AS INT64) as RatecodeID,
-       CAST(PULocationID AS INT64) as PULocationID,
-       CAST(DOLocationID AS INT64) as DOLocationID
+       vendorid,
+       ratecodeid,
+       pickup_locationid,
+       dropoff_locationid
 FROM january
 UNION ALL
 SELECT 
        tripID, 
        pickup_datetime, 
        dropoff_datetime, 
-       CAST(vendorID AS INT64) as vendorID,
-       CAST(RatecodeID AS INT64) as RatecodeID,
-       CAST(PULocationID AS INT64) as PULocationID,
-       CAST(DOLocationID AS INT64) as DOLocationID
+       vendorid,
+       ratecodeid,
+       pickup_locationid,
+       dropoff_locationid
 FROM february
 UNION ALL
 SELECT 
        tripID, 
        pickup_datetime, 
        dropoff_datetime, 
-       CAST(vendorID AS INT64) as vendorID,
-       CAST(RatecodeID AS INT64) as RatecodeID,
-       CAST(PULocationID AS INT64) as PULocationID,
-       CAST(DOLocationID AS INT64) as DOLocationID
+       vendorid,
+       ratecodeid,
+       pickup_locationid,
+       dropoff_locationid
 FROM march

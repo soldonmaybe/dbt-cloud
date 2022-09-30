@@ -1,7 +1,7 @@
 version: 2
 
 sources:
-      name: ny_green_taxi
+      - name: source
 
       schema: ny_green_taxi
 

@@ -1,0 +1,6 @@
+version: 2
+
+models:
+    - name: green_taxi_union
+      description: >
+        taxi trips by each month union in one table.

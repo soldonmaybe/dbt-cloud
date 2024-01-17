@@ -1,8 +1,15 @@
+<<<<<<< HEAD
 
 # Name your project! Project names should contain only lowercase characters
 # and underscores. A good package name should reflect your organization's
 # name or the intended use of these models
 name: 'jaffle_shop'
+=======
+# Name your project! Project names should contain only lowercase characters
+# and underscores. A good package name should reflect your organization's
+# name or the intended use of these models
+name: 'ny_green_taxi'
+>>>>>>> 69a396f67dcd816aaf5247a5a259879691fddb62
 version: '1.0.0'
 config-version: 2
 
@@ -32,7 +39,16 @@ clean-targets:         # directories to be removed by `dbt clean`
 # as tables. These settings can be overridden in the individual model files
 # using the `{{ config(...) }}` macro.
 models:
+<<<<<<< HEAD
   jaffle_shop:
     +materialized: table
     example:
       +materialized: view
+=======
+  ny_green_taxi:
+    # Applies to all files under models/example/
+    source:
+      materialized: view
+    fact:
+      materialized: view
+>>>>>>> 69a396f67dcd816aaf5247a5a259879691fddb62
